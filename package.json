@@ -1,0 +1,50 @@
+{
+  "name": "express-authz",
+  "version": "1.0.0",
+  "description": "express-authz is an authorization middleware for Express",
+  "main": "authz.js",
+  "scripts": {
+    "test": "nyc npm run test-only",
+    "test-only": "mocha --reporter spec test/test.js"
+  },
+  "keywords": [
+    "node-casbin",
+    "expressjs",
+    "express",
+    "authz",
+    "authorization",
+    "middleware"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/node-casbin/express-authz.git"
+  },
+  "author": {
+    "name": "Chalin-Shi",
+    "email": "18875906195@163.com"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "report-dir": "./coverage"
+  },
+  "engines": {
+    "node": ">= 7.6.0"
+  },
+  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "bugs": {
+    "url": "https://github.com/node-casbin/express-authz/issues"
+  },
+  "homepage": "https://github.com/node-casbin/express-authz#readme",
+  "dependencies": {
+    "casbin": "^1.0.7"
+  },
+  "devDependencies": {
+    "express": "^4.16.3",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "supertest": "^3.1.0"
+  }
+}
