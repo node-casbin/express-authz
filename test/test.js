@@ -13,7 +13,7 @@
 // limitations under the License.
 
 const app = require('./server')
-const request = require('supertest')(app.listen())
+const request = require('supertest')(app)
 
 describe('pass through tests', () => {
   it('test: p, alice, /dataset1/*, GET', done => {
