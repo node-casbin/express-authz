@@ -1,8 +1,16 @@
-# Express-Authz 
-
+Express-Authz 
+====
+[![NPM version][npm-image]][npm-url]
+[![NPM download][download-image]][download-url]
+[![codebeat badge](https://codebeat.co/badges/c17c9ee1-da42-4db3-8047-9574ad2b23b1)](https://codebeat.co/projects/github-com-node-casbin-express-authz-master)
 [![Build Status](https://travis-ci.org/node-casbin/express-authz.svg?branch=master)](https://travis-ci.org/node-casbin/express-authz)
 [![Coverage Status](https://coveralls.io/repos/github/node-casbin/express-authz/badge.svg?branch=master)](https://coveralls.io/github/node-casbin/express-authz?branch=master)
-[![Join the chat at https://gitter.im/gin-gonic/gin](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gin-gonic/gin)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/casbin/lobby)
+
+[npm-image]: https://img.shields.io/npm/v/casbin-express-authz.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/casbin-express-authz
+[download-image]: https://img.shields.io/npm/dm/casbin-express-authz.svg?style=flat-square
+[download-url]: https://npmjs.org/package/casbin-express-authz
 
 Express-Authz is an authorization middleware for [Express](https://github.com/expressjs/express), it's based on ``Node-Casbin``: [https://github.com/casbin/node-casbin](https://github.com/casbin/node-casbin).
 
