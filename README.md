@@ -2,7 +2,7 @@ Express-Authz
 ====
 [![NPM version][npm-image]][npm-url]
 [![NPM download][download-image]][download-url]
-[![codebeat badge](https://codebeat.co/badges/c17c9ee1-da42-4db3-8047-9574ad2b23b1)](https://codebeat.co/projects/github-com-node-casbin-express-authz-master)
+[![codebeat badge](https://codebeat.co/badges/d179eb87-cf80-4ddb-ac94-a72a564a2fda)](https://codebeat.co/projects/github-com-node-casbin-express-authz-master)
 [![Build Status](https://travis-ci.org/node-casbin/express-authz.svg?branch=master)](https://travis-ci.org/node-casbin/express-authz)
 [![Coverage Status](https://coveralls.io/repos/github/node-casbin/express-authz/badge.svg?branch=master)](https://coveralls.io/github/node-casbin/express-authz?branch=master)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/casbin/lobby)
@@ -17,7 +17,7 @@ Express-Authz is an authorization middleware for [Express](https://github.com/ex
 ## Installation
 
 ```
-npm install casbin-express-authz
+npm install --save casbin-express-authz
 ```
 
 ## Simple Example
