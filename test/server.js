@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { Enforcer } = require('casbin')
+const { newEnforcer } = require('casbin')
 const express = require('express')
 const authz = require('../authz')
 
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 // use authz middleware
 app.use(authz(async () => {
   // load the casbin model and policy from files, database is also supported.
-  const enforcer = await Enforcer.newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv')
+  const enforcer = await newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv')
   return enforcer
 }))
 

@@ -23,7 +23,7 @@ npm install --save casbin-express-authz
 ## Simple Example
 
 ```js
-const { Enforcer } = require('casbin')
+const { newEnforcer } = require('casbin')
 const express = require('express')
 const authz = require('casbin-express-authz')
 
@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 // use authz middleware
 app.use(authz(async() => {
   // load the casbin model and policy from files, database is also supported.
-  const enforcer = await Enforcer.newEnforcer('authz_model.conf', 'authz_policy.csv')
+  const enforcer = await newEnforcer('authz_model.conf', 'authz_policy.csv')
   return enforcer
 }))
 
