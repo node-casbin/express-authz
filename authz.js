@@ -42,7 +42,7 @@ class BasicAuthorizer {
   // Currently, only HTTP basic authentication is supported
   getUserName () {
     // customize to get username from context
-    const {user} = this.req
+    const {currentUser: user} = this.req.locals
     const {username} = user
     return username
   }

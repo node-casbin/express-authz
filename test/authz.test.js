@@ -16,7 +16,7 @@ const app = require('./server')
 const request = require('supertest')(app)
 
 describe('pass through tests', () => {
-  it('test: p, alice, /dataset1/*, GET', done => {
+  test('test: p, alice, /dataset1/*, GET', done => {
     request
       .get('/dataset1/name')
       .set('Authorization', 'alice')
@@ -26,7 +26,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p, alice, /dataset1/resource1, POST', done => {
+  test('test: p, alice, /dataset1/resource1, POST', done => {
     request
       .post('/dataset1/resource1')
       .set('Authorization', 'alice')
@@ -36,7 +36,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: bob, /dataset2/folder1/*, POST', done => {
+  test('test: bob, /dataset2/folder1/*, POST', done => {
     request
       .post('/dataset2/folder1/file')
       .set('Authorization', 'bob')
@@ -46,7 +46,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource1, * - GET', done => {
+  test('test: p, bob, /dataset2/resource1, * - GET', done => {
     request
       .get('/dataset2/resource1')
       .set('Authorization', 'bob')
@@ -56,7 +56,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource1, * - POST', done => {
+  test('test: p, bob, /dataset2/resource1, * - POST', done => {
     request
       .post('/dataset2/resource1')
       .set('Authorization', 'bob')
@@ -66,7 +66,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource1, * - PUT', done => {
+  test('test: p, bob, /dataset2/resource1, * - PUT', done => {
     request
       .put('/dataset2/resource1')
       .set('Authorization', 'bob')
@@ -76,7 +76,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource1, * - DELETE', done => {
+  test('test: p, bob, /dataset2/resource1, * - DELETE', done => {
     request
       .delete('/dataset2/resource1')
       .set('Authorization', 'bob')
@@ -86,7 +86,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource2, GET', done => {
+  test('test: p, bob, /dataset2/resource2, GET', done => {
     request
       .get('/dataset2/resource2')
       .set('Authorization', 'bob')
@@ -96,7 +96,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p & g, dataset1_admin, /dataset1/*, * - GET', done => {
+  test('test: p & g, dataset1_admin, /dataset1/*, * - GET', done => {
     request
       .get('/dataset1/resource')
       .set('Authorization', 'cathy')
@@ -106,7 +106,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p & g, dataset1_admin, /dataset1/*, * - POST', done => {
+  test('test: p & g, dataset1_admin, /dataset1/*, * - POST', done => {
     request
       .post('/dataset1/resource')
       .set('Authorization', 'cathy')
@@ -116,7 +116,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p & g, dataset1_admin, /dataset1/*, * - PUT', done => {
+  test('test: p & g, dataset1_admin, /dataset1/*, * - PUT', done => {
     request
       .put('/dataset1/resource')
       .set('Authorization', 'cathy')
@@ -126,7 +126,7 @@ describe('pass through tests', () => {
       })
   })
 
-  it('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
+  test('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
     request
       .delete('/dataset1/resource')
       .set('Authorization', 'cathy')
@@ -138,7 +138,7 @@ describe('pass through tests', () => {
 })
 
 describe('success through tests', () => {
-  it('test: p, alice, /dataset1/*, GET - 403', done => {
+  test('test: p, alice, /dataset1/*, GET - 403', done => {
     request
       .post('/dataset1/users')
       .set('Authorization', 'alice')
@@ -148,7 +148,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p, alice, /dataset1/resource1, POST - 403', done => {
+  test('test: p, alice, /dataset1/resource1, POST - 403', done => {
     request
       .post('/dataset1/resource')
       .set('Authorization', 'alice')
@@ -158,7 +158,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: bob, /dataset2/folder1/*, POST', done => {
+  test('test: bob, /dataset2/folder1/*, POST', done => {
     request
       .put('/dataset2/folder1/file')
       .set('Authorization', 'bob')
@@ -168,7 +168,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource1, * - GET', done => {
+  test('test: p, bob, /dataset2/resource1, * - GET', done => {
     request
       .get('/dataset2/resource')
       .set('Authorization', 'bob')
@@ -178,7 +178,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource1, * - POST', done => {
+  test('test: p, bob, /dataset2/resource1, * - POST', done => {
     request
       .post('/dataset2/resource')
       .set('Authorization', 'bob')
@@ -188,7 +188,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource1, * - PUT', done => {
+  test('test: p, bob, /dataset2/resource1, * - PUT', done => {
     request
       .put('/dataset2/resource')
       .set('Authorization', 'bob')
@@ -198,7 +198,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource1, * - DELETE', done => {
+  test('test: p, bob, /dataset2/resource1, * - DELETE', done => {
     request
       .delete('/dataset2/resource')
       .set('Authorization', 'bob')
@@ -208,7 +208,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p, bob, /dataset2/resource2, GET', done => {
+  test('test: p, bob, /dataset2/resource2, GET', done => {
     request
       .post('/dataset2/resource2')
       .set('Authorization', 'bob')
@@ -218,7 +218,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p & g, dataset1_admin, /dataset1/*, * - GET', done => {
+  test('test: p & g, dataset1_admin, /dataset1/*, * - GET', done => {
     request
       .get('/dataset1/resource')
       .set('Authorization', 'chalin')
@@ -228,7 +228,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p & g, dataset1_admin, /dataset1/*, * - POST', done => {
+  test('test: p & g, dataset1_admin, /dataset1/*, * - POST', done => {
     request
       .post('/dataset1/resource')
       .set('Authorization', 'chalin')
@@ -238,7 +238,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p & g, dataset1_admin, /dataset1/*, * - PUT', done => {
+  test('test: p & g, dataset1_admin, /dataset1/*, * - PUT', done => {
     request
       .put('/dataset1/resource')
       .set('Authorization', 'chalin')
@@ -248,7 +248,7 @@ describe('success through tests', () => {
       })
   })
 
-  it('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
+  test('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
     request
       .delete('/dataset1/resource')
       .set('Authorization', 'chalin')
