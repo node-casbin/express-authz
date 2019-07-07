@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/node-casbin/express-authz#readme",
   "dependencies": {
-    "casbin": "^2.0.0"
+    "casbin": "^3.0.3"
   },
   "devDependencies": {
     "coveralls": "^3.0.2",
