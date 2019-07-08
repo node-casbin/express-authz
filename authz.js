@@ -23,7 +23,8 @@ module.exports = function authz (newEnforcer) {
       return
     }
     const authzorizer = new BasicAuthorizer(req, enforcer)
-    if (!authzorizer.checkPermission()) {
+    const isAllowed = await authzorizer.checkPermission()
+    if (!isAllowed) {
       res.status(403).json({403: 'Forbidden'})
       return
     }
@@ -49,10 +50,11 @@ class BasicAuthorizer {
 
   // checkPermission checks the user/method/path combination from the request.
   // Returns true (permission granted) or false (permission forbidden)
-  checkPermission () {
+  async checkPermission () {
     const {req, enforcer} = this
     const {originalUrl: path, method} = req
     const user = this.getUserName()
-    return enforcer.enforce(user, path, method)
+    const isAllowed = await enforcer.enforce(user, path, method)
+    return isAllowed
   }
 }
