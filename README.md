@@ -17,8 +17,14 @@ Express-Authz is an authorization middleware for [Express](https://github.com/ex
 
 ## Installation
 
+### use casbin v2.x
+```shell
+npm install casbin@2 casbin-express-authz@1 --save
 ```
-npm install --save casbin-express-authz
+
+### use casbin v3.x
+```shell
+npm install casbin@3 casbin-express-authz@2 --save
 ```
 
 ## Simple Example
