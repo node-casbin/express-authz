@@ -26,6 +26,10 @@ npm install casbin@2 casbin-express-authz@1 --save
 ```shell
 npm install casbin@3 casbin-express-authz@2 --save
 ```
+or you can simply use,
+```shell
+npm install express casbin casbin-express-authz --save
+```
 
 ## Simple Example
 
@@ -38,8 +42,10 @@ const app = express()
 
 // set userinfo
 app.use((req, res, next) => {
+  req.locals = req.locals || {}
   const username = req.get('Authorization') || 'anonymous'
-  req.user = {username}
+  req.locals.currentUser = {username}
+  req.locals.authenticated = !!username
   next()
 })
 
