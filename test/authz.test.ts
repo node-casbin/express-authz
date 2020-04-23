@@ -259,6 +259,16 @@ describe('success through tests', () => {
         done()
       })
   })
+
+  test('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
+    request
+      .delete('/dataset1/resource')
+      .set('Authorization', `Basic alice`)
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
 })
 
 describe('pass through custom server tests', () => {

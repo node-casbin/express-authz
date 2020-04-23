@@ -40,7 +40,7 @@ class BasicAuthorizer {
     enforcer: Enforcer;
     constructor(req: Request, res: Response, enforcer: Enforcer) {
         this.req = req
-        this.res = res 
+        this.res = res
         this.enforcer = enforcer
     }
 
@@ -49,19 +49,25 @@ class BasicAuthorizer {
     getUserName(): string {
         if (this.res.locals.username != undefined) return this.res.locals.username;
 
-        let header: string = this.req.get("Authorization");
-        if (header != "undefined") {
-            let arr: Array<string> = header.split(" ");
-            if (arr[0].trim() == "Basic") {
-                let value: string = Buffer.from(arr[1], 'base64').toString('ascii');
-                let tempArr: Array<string> = value.split(":");
-                return tempArr[0];
+        try {
+            let header: string = this.req.get("Authorization");
+            if (header != "undefined") {
+                let arr: Array<string> = header.split(" ");
+                if (arr[0].trim() == "Basic") {
+                    let value: string = Buffer.from(arr[1], 'base64').toString('ascii');
+                    let tempArr: Array<string> = value.split(":");
+                    return tempArr[0];
+                } else {
+                    return "";
+                }
             } else {
                 return "";
             }
-        } else {
+        } catch (e) {
+            console.log(e);
             return "";
         }
+
     }
 
     // checkPermission checks the user/method/path combination from the request.
