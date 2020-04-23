@@ -15,24 +15,6 @@
 import { Enforcer } from "casbin"
 import { Request, Response } from "express"
 
-// authz returns the authorizer, uses a Casbin enforcer as input
-export default function authz(newEnforcer: Promise<Enforcer>) {
-    return async (req: Request, res: Response, next) => {
-        const enforcer: Enforcer = await newEnforcer;
-        if (!(enforcer instanceof Enforcer)) {
-            res.status(500).json({ 500: 'Invalid enforcer' })
-            return
-        }
-        const authzorizer = new BasicAuthorizer(req, res, enforcer)
-        const isAllowed = await authzorizer.checkPermission()
-        if (!isAllowed) {
-            res.status(403).json({ 403: 'Forbidden' })
-            return
-        }
-        next()
-    }
-}
-
 // BasicAuthorizer class stores the casbin handler
 class BasicAuthorizer {
     req: Request;
@@ -50,12 +32,12 @@ class BasicAuthorizer {
         if (this.res.locals.username != undefined) return this.res.locals.username;
 
         try {
-            let header: string = this.req.get("Authorization");
+            const header: string = this.req.get("Authorization");
             if (header != "undefined") {
-                let arr: Array<string> = header.split(" ");
+                const arr: Array<string> = header.split(" ");
                 if (arr[0].trim() == "Basic") {
-                    let value: string = Buffer.from(arr[1], 'base64').toString('ascii');
-                    let tempArr: Array<string> = value.split(":");
+                    const value: string = Buffer.from(arr[1], 'base64').toString('ascii');
+                    const tempArr: Array<string> = value.split(":");
                     return tempArr[0];
                 } else {
                     return "";
@@ -80,3 +62,23 @@ class BasicAuthorizer {
         return isAllowed
     }
 }
+
+// authz returns the authorizer, uses a Casbin enforcer as input
+export default function authz(newEnforcer: Promise<Enforcer>) {
+    return async (req: Request, res: Response, next): Promise<void> => {
+        const enforcer: Enforcer = await newEnforcer;
+        if (!(enforcer instanceof Enforcer)) {
+            res.status(500).json({ 500: 'Invalid enforcer' })
+            return
+        }
+        const authzorizer = new BasicAuthorizer(req, res, enforcer)
+        const isAllowed = await authzorizer.checkPermission()
+        if (!isAllowed) {
+            res.status(403).json({ 403: 'Forbidden' })
+            return
+        }
+        next()
+    }
+}
+
+

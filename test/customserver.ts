@@ -27,8 +27,8 @@ app.use((req, res, next) => {
 app.use(authz(enforcer))
 
 // response
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(200).json({ 200: 'OK' })
 })
 
-module.exports = app
+export default app

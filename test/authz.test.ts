@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const server = require('./server')
-const customServer = require('./customserver')
-const request = require('supertest')(server)
-const customRequest = require('supertest')(customServer)
+import server from "./server"
+import customServer from './customserver'
+import * as supertest from "supertest"
+
+const request = supertest(server);
+const customRequest = supertest(customServer)
 
 describe('pass through tests', () => {
   test('test: p, alice, /dataset1/*, GET', done => {
