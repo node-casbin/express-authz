@@ -4,10 +4,10 @@
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
-    "sourceMap": true,
     "typeRoots": ["node_modules/@types"],
     "declaration": true,
-    "declarationDir": "build"
+    "declarationDir": "build",
+    "inlineSourceMap": true
   },
   "include": ["src/**/**.ts"],
   "exclude": ["node_modules"]

@@ -283,6 +283,35 @@ describe('pass through custom server tests', () => {
       })
   })
 
+  test('no header and no custom username test', done => {
+    request
+      .put('/dataset1/resource')
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
+
+  test('different HTTP Authentication test', done => {
+    request
+      .put('/dataset1/resource')
+      .set('Authorization', `Bearer awdhdjshdcxckcfk`)
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
+
+  test("invalid header test", done => {
+    request
+      .put('/dataset1/resource')
+      .set('Authorization', `awdhdjshdcxckcfk`)
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
+
   test('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
     customRequest
       .delete('/dataset1/resource')
