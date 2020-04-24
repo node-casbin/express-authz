@@ -14,7 +14,7 @@
 
 import { newEnforcer } from "casbin"
 import * as express from "express"
-import authz from "../build/authz"
+import authz from "../src/authz"
 
 const app = express()
 const enforcer = newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv')

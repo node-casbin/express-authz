@@ -33,18 +33,12 @@ class BasicAuthorizer {
 
         try {
             const header: string = this.req.get("Authorization");
-            if (header != undefined) {
-                const arr: Array<string> = header.split(" ");
-                if (arr[0].trim() == "Basic") {
-                    const value: string = Buffer.from(arr[1], 'base64').toString('ascii');
-                    const tempArr: Array<string> = value.split(":");
-                    return tempArr[0];
-                } else {
-                    return "";
-                }
-            } else {
-                return "";
-            }
+            if (header == undefined) return "";
+            const arr: Array<string> = header.split(" ");
+            if (arr[0].trim() != "Basic") return "";
+            const value: string = Buffer.from(arr[1], 'base64').toString('ascii');
+            const tempArr: Array<string> = value.split(":");
+            return tempArr[0];
         } catch (e) {
             console.log(e);
             return "";

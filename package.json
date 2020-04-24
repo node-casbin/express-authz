@@ -2,12 +2,13 @@
   "name": "casbin-express-authz",
   "version": "3.0.0",
   "description": "casbin-express-authz is an authorization middleware for Express",
-  "main": "build/authz.js",
+  "main": "./build/authz.js",
+  "types": "./build/authz.d.ts",
   "scripts": {
-    "prepublish": "npm run build && npm run lint && npm run test",
+    "prepublish": "npm run lint && npm run test && npm run build",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "fix": "eslint \"authz.js\" --fix",
+    "fix": "eslint . --ext .ts --fix",
     "test": "jest"
   },
   "keywords": [
