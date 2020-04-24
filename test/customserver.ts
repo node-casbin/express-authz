@@ -12,31 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { newEnforcer } = require('casbin')
-const express = require('express')
-const authz = require('../authz')
+import { newEnforcer } from "casbin"
+import * as express from "express"
+import authz from "../src/authz"
 
 const app = express()
+const enforcer = newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv')
 
-// response
 app.use((req, res, next) => {
-  req.locals = req.locals || {}
-  const username = req.get('Authorization') || 'anonymous'
-  req.locals.currentUser = {username}
-  req.locals.authenticated = !!username
+  res.locals.username = "alice"
   next()
 })
-
 // use authz middleware
-app.use(authz(async () => {
-  // load the casbin model and policy from files, database is also supported.
-  const enforcer = await newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv')
-  return enforcer
-}))
+app.use(authz(enforcer))
 
 // response
-app.use((req, res, next) => {
-  res.status(200).json({200: 'OK'})
+app.use((req, res) => {
+  res.status(200).json({ 200: 'OK' })
 })
 
-module.exports = app
+export default app

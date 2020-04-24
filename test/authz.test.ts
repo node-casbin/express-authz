@@ -12,14 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const app = require('./server')
-const request = require('supertest')(app)
+import server from "./server"
+import customServer from './customserver'
+import * as supertest from "supertest"
+
+const request = supertest(server);
+const customRequest = supertest(customServer)
 
 describe('pass through tests', () => {
   test('test: p, alice, /dataset1/*, GET', done => {
     request
       .get('/dataset1/name')
-      .set('Authorization', 'alice')
+      .set('Authorization', `Basic ${Buffer.from("alice:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -29,7 +33,7 @@ describe('pass through tests', () => {
   test('test: p, alice, /dataset1/resource1, POST', done => {
     request
       .post('/dataset1/resource1')
-      .set('Authorization', 'alice')
+      .set('Authorization', `Basic ${Buffer.from("alice:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -39,7 +43,7 @@ describe('pass through tests', () => {
   test('test: bob, /dataset2/folder1/*, POST', done => {
     request
       .post('/dataset2/folder1/file')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -49,7 +53,7 @@ describe('pass through tests', () => {
   test('test: p, bob, /dataset2/resource1, * - GET', done => {
     request
       .get('/dataset2/resource1')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -59,7 +63,7 @@ describe('pass through tests', () => {
   test('test: p, bob, /dataset2/resource1, * - POST', done => {
     request
       .post('/dataset2/resource1')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -69,7 +73,7 @@ describe('pass through tests', () => {
   test('test: p, bob, /dataset2/resource1, * - PUT', done => {
     request
       .put('/dataset2/resource1')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -79,7 +83,7 @@ describe('pass through tests', () => {
   test('test: p, bob, /dataset2/resource1, * - DELETE', done => {
     request
       .delete('/dataset2/resource1')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -89,7 +93,7 @@ describe('pass through tests', () => {
   test('test: p, bob, /dataset2/resource2, GET', done => {
     request
       .get('/dataset2/resource2')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -99,7 +103,7 @@ describe('pass through tests', () => {
   test('test: p & g, dataset1_admin, /dataset1/*, * - GET', done => {
     request
       .get('/dataset1/resource')
-      .set('Authorization', 'cathy')
+      .set('Authorization', `Basic ${Buffer.from("cathy:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -109,7 +113,7 @@ describe('pass through tests', () => {
   test('test: p & g, dataset1_admin, /dataset1/*, * - POST', done => {
     request
       .post('/dataset1/resource')
-      .set('Authorization', 'cathy')
+      .set('Authorization', `Basic ${Buffer.from("cathy:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -119,7 +123,7 @@ describe('pass through tests', () => {
   test('test: p & g, dataset1_admin, /dataset1/*, * - PUT', done => {
     request
       .put('/dataset1/resource')
-      .set('Authorization', 'cathy')
+      .set('Authorization', `Basic ${Buffer.from("cathy:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -129,7 +133,7 @@ describe('pass through tests', () => {
   test('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
     request
       .delete('/dataset1/resource')
-      .set('Authorization', 'cathy')
+      .set('Authorization', `Basic ${Buffer.from("cathy:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(200)
         done()
@@ -141,7 +145,7 @@ describe('success through tests', () => {
   test('test: p, alice, /dataset1/*, GET - 403', done => {
     request
       .post('/dataset1/users')
-      .set('Authorization', 'alice')
+      .set('Authorization', `Basic ${Buffer.from("alice:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -151,7 +155,7 @@ describe('success through tests', () => {
   test('test: p, alice, /dataset1/resource1, POST - 403', done => {
     request
       .post('/dataset1/resource')
-      .set('Authorization', 'alice')
+      .set('Authorization', `Basic ${Buffer.from("alice:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -161,7 +165,7 @@ describe('success through tests', () => {
   test('test: bob, /dataset2/folder1/*, POST', done => {
     request
       .put('/dataset2/folder1/file')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -171,7 +175,7 @@ describe('success through tests', () => {
   test('test: p, bob, /dataset2/resource1, * - GET', done => {
     request
       .get('/dataset2/resource')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -181,7 +185,7 @@ describe('success through tests', () => {
   test('test: p, bob, /dataset2/resource1, * - POST', done => {
     request
       .post('/dataset2/resource')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -191,7 +195,7 @@ describe('success through tests', () => {
   test('test: p, bob, /dataset2/resource1, * - PUT', done => {
     request
       .put('/dataset2/resource')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -201,7 +205,7 @@ describe('success through tests', () => {
   test('test: p, bob, /dataset2/resource1, * - DELETE', done => {
     request
       .delete('/dataset2/resource')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -211,7 +215,7 @@ describe('success through tests', () => {
   test('test: p, bob, /dataset2/resource2, GET', done => {
     request
       .post('/dataset2/resource2')
-      .set('Authorization', 'bob')
+      .set('Authorization', `Basic ${Buffer.from("bob:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -221,7 +225,7 @@ describe('success through tests', () => {
   test('test: p & g, dataset1_admin, /dataset1/*, * - GET', done => {
     request
       .get('/dataset1/resource')
-      .set('Authorization', 'chalin')
+      .set('Authorization', `Basic ${Buffer.from("chalin:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -231,7 +235,7 @@ describe('success through tests', () => {
   test('test: p & g, dataset1_admin, /dataset1/*, * - POST', done => {
     request
       .post('/dataset1/resource')
-      .set('Authorization', 'chalin')
+      .set('Authorization', `Basic ${Buffer.from("chalin:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -241,7 +245,7 @@ describe('success through tests', () => {
   test('test: p & g, dataset1_admin, /dataset1/*, * - PUT', done => {
     request
       .put('/dataset1/resource')
-      .set('Authorization', 'chalin')
+      .set('Authorization', `Basic ${Buffer.from("chalin:password").toString('base64')}`)
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
@@ -251,7 +255,66 @@ describe('success through tests', () => {
   test('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
     request
       .delete('/dataset1/resource')
-      .set('Authorization', 'chalin')
+      .set('Authorization', `Basic ${Buffer.from("chalin:password").toString('base64')}`)
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
+
+  test('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
+    request
+      .delete('/dataset1/resource')
+      .set('Authorization', `Basic alice`)
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
+})
+
+describe('pass through custom server tests', () => {
+  test('test: p, alice, /dataset1/*, GET', done => {
+    customRequest
+      .get('/dataset1/name')
+      .then(response => {
+        expect(response.statusCode).toBe(200)
+        done()
+      })
+  })
+
+  test('no header and no custom username test', done => {
+    request
+      .put('/dataset1/resource')
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
+
+  test('different HTTP Authentication test', done => {
+    request
+      .put('/dataset1/resource')
+      .set('Authorization', `Bearer awdhdjshdcxckcfk`)
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
+
+  test("invalid header test", done => {
+    request
+      .put('/dataset1/resource')
+      .set('Authorization', `awdhdjshdcxckcfk`)
+      .then(response => {
+        expect(response.statusCode).toBe(403)
+        done()
+      })
+  })
+
+  test('test: p & g, dataset1_admin, /dataset1/*, * - DELETE', done => {
+    customRequest
+      .delete('/dataset1/resource')
       .then(response => {
         expect(response.statusCode).toBe(403)
         done()
