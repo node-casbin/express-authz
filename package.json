@@ -1,6 +1,6 @@
 {
   "name": "casbin-express-authz",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "casbin-express-authz is an authorization middleware for Express",
   "main": "./build/authz.js",
   "types": "./build/authz.d.ts",
