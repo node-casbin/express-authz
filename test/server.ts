@@ -12,19 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { newEnforcer } from "casbin"
-import * as express from "express"
-import authz from "../src/authz"
+import { newEnforcer } from 'casbin';
+import * as express from 'express';
+import { authz } from '../src/authz';
 
-const app = express()
-const enforcer = newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv')
+const app = express();
+const enforcer = newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
 
+console.log(authz);
 // use authz middleware
-app.use(authz(enforcer))
+app.use(authz({ newEnforcer: enforcer }));
 
 // response
 app.use((req, res) => {
-  res.status(200).json({ 200: 'OK' })
-})
+  res.status(200).json({ 200: 'OK' });
+});
 
-export default app
+export default app;
