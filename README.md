@@ -103,6 +103,45 @@ app.use(
 app.listen(3000);
 ```
 
+### Usage with customized authorizer class
+
+When the authorizer needs the request and response object to check the permission, one can pass the constructor of the customized `Authorizer` class instead of an instance.
+
+```typescript
+import { Enforcer, newEnforcer } from 'casbin';
+import { authz, AuthorizerConstructor } from 'casbin-express-authz';
+import { Request, Response } from 'express';
+
+const app = express();
+
+class MyAuthorizer implements Authorizer {
+  private e: Enforcer;
+  private req: Request;
+  private res: Respons;
+
+  constructor(req:Request, res:Respons, e: Enforcer) {
+    this.e = e;
+    this.req = req
+    this.res = res
+  }
+
+  checkPermission(): Promise<boolean> {
+    // do something
+    return true;
+  }
+}
+const e = newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
+
+app.use(
+  authz({
+    newEnforcer: e,
+    authorizer: MyAuthorizer,
+  })
+);
+
+app.listen(3000);
+```
+
 ## How to control the access
 
 The authorization determines a request based on `{subject, object, action}`, which means what `subject` can perform what `action` on what `object`. In this plugin, the meanings are:

@@ -66,8 +66,6 @@
     "typescript": "^3.8.3"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint && pretty-quick --staged"
-    }
+    "hooks": {}
   }
 }
