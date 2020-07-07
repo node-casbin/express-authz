@@ -13,10 +13,14 @@
 // limitations under the License.
 
 import { Enforcer } from 'casbin';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 export interface Authorizer {
   checkPermission(): Promise<boolean>;
+}
+
+interface AuthorizerConstructor {
+  new(req: Request, res: Response, enforcer: Enforcer): Authorizer
 }
 
 // BasicAuthorizer class stores the casbin handler
@@ -62,19 +66,24 @@ class BasicAuthorizer implements Authorizer {
 
 interface AuthzOptions {
   newEnforcer: Promise<Enforcer>;
-  authorizer?: Authorizer;
+  authorizer?: Authorizer | AuthorizerConstructor;
 }
 
 // authz returns the authorizer, uses a Casbin enforcer as input
 export function authz(opt: AuthzOptions) {
-  return async (req: Request, res: Response, next): Promise<void> => {
+  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const enforcer: Enforcer = await opt.newEnforcer;
     if (!(enforcer instanceof Enforcer)) {
       res.status(500).json({ 500: 'Invalid enforcer' });
       return;
     }
 
-    const authorizer = opt.authorizer ? opt.authorizer : new BasicAuthorizer(req, res, enforcer);
+    const authorizer = opt.authorizer
+      ? (typeof opt.authorizer === 'function'
+          ? new opt.authorizer(req, res, enforcer)
+          : opt.authorizer
+        )
+      : new BasicAuthorizer(req, res, enforcer);
 
     const isAllowed = await authorizer.checkPermission();
     if (!isAllowed) {
