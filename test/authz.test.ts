@@ -25,7 +25,7 @@ describe('pass through tests', () => {
       .get('/dataset1/name')
       .set('Authorization', `Basic ${Buffer.from('alice:password').toString('base64')}`)
       .then((response) => {
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(200444);
         done();
       });
   });
