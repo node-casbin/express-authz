@@ -49,7 +49,7 @@ const express = require('express');
 const { authz } = require('casbin-express-authz');
 
 const app = express();
-const enforcer = newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
+const enforcer = await newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
 
 // set userinfo
 app.use((req, res, next) => {
@@ -91,7 +91,7 @@ class MyAuthorizer implements Authorizer {
     return true;
   }
 }
-const e = newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
+const e = await newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
 
 app.use(
   authz({
@@ -130,7 +130,7 @@ class MyAuthorizer implements Authorizer {
     return true;
   }
 }
-const e = newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
+const e = await newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
 
 app.use(
   authz({
