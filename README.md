@@ -6,7 +6,7 @@
 [![GitHub Actions](https://github.com/node-casbin/express-authz/workflows/main/badge.svg)](https://github.com/node-casbin/express-authz/actions)
 [![Coverage Status](https://coveralls.io/repos/github/node-casbin/express-authz/badge.svg?branch=master)](https://coveralls.io/github/node-casbin/express-authz?branch=master)
 [![Release](https://img.shields.io/github/release/node-casbin/express-authz.svg)](https://github.com/node-casbin/express-authz/releases/latest)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/casbin/lobby)
+[![Discord](https://img.shields.io/discord/1022748306096537660?logo=discord&label=discord&color=5865F2)](https://discord.gg/S5UjpzGZjN)
 
 [npm-image]: https://img.shields.io/npm/v/casbin-express-authz.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/casbin-express-authz
