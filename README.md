@@ -2,7 +2,6 @@
 
 [![NPM version][npm-image]][npm-url]
 [![NPM download][download-image]][download-url]
-[![codebeat badge](https://codebeat.co/badges/d179eb87-cf80-4ddb-ac94-a72a564a2fda)](https://codebeat.co/projects/github-com-node-casbin-express-authz-master)
 [![GitHub Actions](https://github.com/node-casbin/express-authz/workflows/main/badge.svg)](https://github.com/node-casbin/express-authz/actions)
 [![Coverage Status](https://coveralls.io/repos/github/node-casbin/express-authz/badge.svg?branch=master)](https://coveralls.io/github/node-casbin/express-authz?branch=master)
 [![Release](https://img.shields.io/github/release/node-casbin/express-authz.svg)](https://github.com/node-casbin/express-authz/releases/latest)
